@@ -26,7 +26,7 @@ void AsioIOServicePool::Stop()
 	}
 }
 
-AsioIOServicePool::AsioIOServicePool(std::size_t size)
+AsioIOServicePool::AsioIOServicePool(std::size_t size)//size是建议开辟的线程数量
 	:_ioService(size),_nextIOService(0),_works(size)
 {
 	std::cout << "open:" << size << "thread\n";

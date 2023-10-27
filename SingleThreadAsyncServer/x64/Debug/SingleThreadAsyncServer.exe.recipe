@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\work\C++Project\SingleThreadAsyncServer\x64\Debug\SingleThreadAsyncServer.exe</FullPath>
+      <FullPath>D:\work\C++Project\CPPMultiThreadServer_BoosAsio\x64\Debug\SingleThreadAsyncServer.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

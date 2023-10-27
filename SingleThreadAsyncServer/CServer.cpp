@@ -12,11 +12,14 @@ void CServer::ClearSession(std::string uuid) {
 void CServer::StartAccept() {
     //通过服务池 获取一个已经创建好的 io_context
     auto& io_context = AsioIOServicePool::GetInstance()->GetIOService();
-
     std::shared_ptr<CSession> newSession = std::make_shared<CSession>(io_context, this);
     _acceptor.async_accept(newSession->GetSocket(), std::bind(
         &CServer::HandleAccept, this, std::placeholders::_1, newSession
     ));
+
+    //串行
+    //std::shared_ptr<CSession> newSession = std::make_shared<CSession>(_io_context, this);
+    
 }
 void CServer::HandleAccept(const boost::system::error_code& ec, std::shared_ptr<CSession> newSession) {
     if (!ec) {

@@ -43,6 +43,8 @@ private:
     std::shared_ptr<RecvNode> _recv_msg_node;
     bool _b_head_parse;
     bool _b_close;
+    //´®ÐÐ
+    //boost::asio::strand<boost::asio::io_context::executor_type> _strand;
 };
 
 class LogicNode {

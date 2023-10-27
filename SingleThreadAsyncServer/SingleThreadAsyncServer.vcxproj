@@ -24,6 +24,7 @@
     <ProjectGuid>{7b158215-df0b-4865-bc79-8d6c91aa440e}</ProjectGuid>
     <RootNamespace>SingleThreadAsyncServer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>AsioIOServicePool</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -140,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AsioIOServicePool.h" />
+    <ClInclude Include="AsioThreadPool.h" />
     <ClInclude Include="const.h" />
     <ClInclude Include="CServer.h" />
     <ClInclude Include="CSession.h" />
@@ -149,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AsioIOServicePool.cpp" />
+    <ClCompile Include="AsioThreadPool.cpp" />
     <ClCompile Include="CServer.cpp" />
     <ClCompile Include="CSession.cpp" />
     <ClCompile Include="LogicSystem.cpp" />

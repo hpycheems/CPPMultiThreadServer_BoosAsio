@@ -6,7 +6,10 @@
 #include <json/value.h>
 #include <json/reader.h>
 
-CSession::CSession(boost::asio::io_context& io_context, CServer* server) :_socket(io_context), _server(server), _b_head_parse(false), _b_close(false) {
+CSession::CSession(boost::asio::io_context& io_context, CServer* server) :
+    _socket(io_context), _server(server), _b_head_parse(false), _b_close(false){
+    //串行
+    //_strand(io_context.get_executor());
     boost::uuids::uuid a_uuid = boost::uuids::random_generator()();
     _uuid = boost::uuids::to_string(a_uuid);
     _recv_head_node = std::make_shared<MsgNode>(HEAD_TOTAL_LEN);
@@ -22,9 +25,16 @@ tcp::socket& CSession::GetSocket() {
     return _socket;
 }
 void CSession::Close() {
-
+    _socket.close();
+    _b_close = true;
 }
 void CSession::Start() {
+    //读写变成串行
+    //_socket.async_read_some(boost::asio::buffer(_data, MAX_LENGHT), 
+    //    boost::asio::bind_executor(_strand, std::bind(&CSession::HandleRead,
+    //        this, std::placeholders::_1, std::placeholders::_2, SessionSelf())
+    //));
+
     memset(_data, 0, MAX_LENGHT);
     _socket.async_read_some(boost::asio::buffer(_data, MAX_LENGHT), std::bind(
         &CSession::HandleRead, this, std::placeholders::_1, std::placeholders::_2, SessionSelf()
@@ -38,6 +48,9 @@ std::shared_ptr<CSession> CSession::SessionSelf() {
 }
 
 void CSession::Send(char* msg, int max_len, short msg_id) {
+    //发送的时候也是需要串行的
+    //通过boost::asio::bind_exeutor(std::bind())来进行
+
     std::lock_guard<std::mutex> lock(_send_lock);
     int send_que_size = _send_queue.size();
     if (send_que_size > MAX_SENDQUE) {
